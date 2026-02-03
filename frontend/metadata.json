@@ -1,0 +1,9 @@
+
+{
+  "name": "Style Reimagined - AI Fashion Stylist",
+  "description": "An advanced AI-powered fashion assistant that creates digital twins, analyzes style DNA, and generates curated outfits for any occasion using Gemini intelligence.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}

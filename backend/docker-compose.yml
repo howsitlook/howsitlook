@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fashion-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DATABASE_URL=postgresql://fashionuser:fashionpass@db:5432/fashiondb
+      - MODEL_DEVICE=cpu
+      - SECRET_KEY=your-super-secret-key-change-in-production
+    volumes:
+      - ./static:/app/static
+      - ./:/app
+    depends_on:
+      - db
+    networks:
+      - fashion-network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: fashion-db
+    environment:
+      - POSTGRES_USER=fashionuser
+      - POSTGRES_PASSWORD=fashionpass
+      - POSTGRES_DB=fashiondb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - fashion-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fashionuser"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: PgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: fashion-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@fashion.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123456
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - fashion-network
+
+volumes:
+  postgres_data:
+
+networks:
+  fashion-network:
+    driver: bridge
