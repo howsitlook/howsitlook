@@ -1,0 +1,23 @@
+/* Minimal global styles for the app. Tailwind CDN is used for utility classes. */
+:root{
+  --bg-dark: #211121;
+  --bg-light: #f8f6f8;
+  --primary: #e830e8;
+}
+html,body,#root{height:100%;}
+body{margin:0; font-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+.app-container{min-height:100vh;background:var(--bg-dark);}
+
+/* Make images fluid */
+img{max-width:100%;height:auto;display:block}
+
+/* Utility for centering content on large screens */
+.centered-max{max-width:1120px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+
+/* Ensure modals and full-screen loaders adapt */
+.full-height{height:100vh}
+
+/* small-screen tweaks */
+@media (max-width:640px){
+  .shadow-2xl{box-shadow: 0 8px 24px rgba(0,0,0,0.6)}
+}

@@ -112,7 +112,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-dark max-w-md mx-auto relative shadow-2xl overflow-x-hidden no-scrollbar">
+    <div className="min-h-screen bg-background-dark mx-auto relative shadow-2xl overflow-x-hidden no-scrollbar w-full max-w-screen-lg px-4 sm:px-6 lg:px-8">
       {renderScreen()}
     </div>
   );
